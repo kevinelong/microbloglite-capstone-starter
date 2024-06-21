@@ -2,8 +2,12 @@
 
 "use strict";
 
-const apiBaseURL = "https://microbloglite.herokuapp.com";
-// Backup server:   https://microbloglite.onrender.com
+const apiBaseURL = "http://microbloglite.us-east-2.elasticbeanstalk.com";
+// Backup server (mirror):   "https://microbloglite.onrender.com"
+
+// NOTE: API documentation is available at /docs 
+// For example: http://microbloglite.us-east-2.elasticbeanstalk.com/docs
+
 
 // You can use this function to get the login data of the logged-in
 // user (if any). It returns either an object including the username
@@ -42,6 +46,14 @@ function login (loginData) {
     return fetch(apiBaseURL + "/auth/login", options)
         .then(response => response.json())
         .then(loginData => {
+            if (loginData.message === "Invalid username or password") {
+                console.error(loginData)
+                // Here is where you might want to add an error notification 
+                // or other visible indicator to the page so that the user is  
+                // informed that they have entered the wrong login info.
+                return null
+            }
+
             window.localStorage.setItem("login-data", JSON.stringify(loginData));
             window.location.assign("/posts");  // redirect
 
