@@ -14,7 +14,7 @@ const apiBaseURL = "http://microbloglite.us-east-2.elasticbeanstalk.com";
 
 // You can use this function to see whether the current visitor is
 // logged in. It returns either `true` or `false`.
-function isLoggedIn () {
+function isLoggedIn() {
     return Boolean(localStorage.token);
 }
 
@@ -23,27 +23,32 @@ function isLoggedIn () {
 // landing page, in order to process a user's login. READ this code,
 // and feel free to re-use parts of it for other `fetch()` requests
 // you may need to write.
-function login (loginData) {
-    return fetch(apiBaseURL + "/auth/login", { 
+function login(loginData) {
+    return fetch(apiBaseURL + "/auth/login", {
         method: "POST",
-        headers: {"Content-Type": "application/json",},
+        headers: { "Content-Type": "application/json", },
         body: JSON.stringify(loginData),
     }).then(response => response.json()).then(loginData => {
-            window.localStorage.setItem("login-data", JSON.stringify(loginData));
-            window.localStorage.token = loginData.token; //simple string
-            window.location.assign("/posts");  // redirect
-            return loginData;
+        if (loginData.hasOwnProperty("message")) {
+            errorMessage.innerHTML = loginData.statusCode + " - " + loginData.message;
+            return;
+        }
+        errorMessage.innerHTML = "";
+        window.localStorage.setItem("login-data", JSON.stringify(loginData));
+        window.localStorage.token = loginData.token; //simple string
+        window.location.assign("/posts");  // redirect
+        return loginData;
     });
 }
 
 
-function logout () {
-    fetch(apiBaseURL + "/auth/logout", { 
+function logout() {
+    fetch(apiBaseURL + "/auth/logout", {
         method: "GET",
-        headers: { Authorization: `Bearer ${localStorage.token}`}
+        headers: { Authorization: `Bearer ${localStorage.token}` }
     }).then(() => {
-            window.localStorage.removeItem("token");
-            location  = "/";  // redirect back to landing page
+        window.localStorage.removeItem("token");
+        location = "/";  // redirect back to landing page
     });
 }
 

@@ -35,7 +35,11 @@ function getMessage(message) {
     <div>
         <h1>${message.text}</h1>
         <div class="username">${message.username}</div>
+        <div class="createdAt">${message.createdAt}</div>
+        <div class="ID:">${message._id}</div>
+        <div class="Likes:">${message.likes.length}</div>
     </div>
+    <hr>
     `;
 }
 function showMessages(messages) {
@@ -46,7 +50,7 @@ function showMessages(messages) {
     messagesOutput.innerHTML = messages.map(getMessage).join("");
 }
 
-fetch(apiBaseURL + "/api/posts?limit=1000&offset=0", {
+fetch(apiBaseURL + "/api/posts?limit=10000&offset=1", {
     method: "GET",
     // mode: "no-cors", // cors, no-cors, *cors, same-origin
     // credentials: "omit", // include, *same-origin, omit
