@@ -12,10 +12,10 @@
 buttonPostMessage.addEventListener("click", e => {
     fetch(apiBaseURL + "/api/posts", {
         method: "POST",
-        mode: "cors", // cors, no-cors, *cors, same-origin
-        cache: "no-cache", // *default, no-cache, reload, 
-        credentials: "same-origin",
-        header: {
+        // mode: "cors", // cors, no-cors, *cors, same-origin
+        // cache: "no-cache", // *default, no-cache, reload, 
+        // credentials: "same-origin",
+        headers: {
             accept: "application/json",
             "Content-Type": "application/json",
             Authorization: "Bearer " + localStorage.token
