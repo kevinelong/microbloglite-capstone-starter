@@ -9,12 +9,26 @@
 //   -d '{
 //   "text": "string"
 // }'
+function like(postId){
+    fetch(apiBaseURL + "/api/likes", {
+        method: "POST",
+        headers: {
+            accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.token
+        },
+        body: JSON.stringify({
+            postId: postId
+        })
+    }).then(response => {
+        console.log(response);
+        location = "/posts/";  //force refresh
+    });
+}
+
 buttonPostMessage.addEventListener("click", e => {
     fetch(apiBaseURL + "/api/posts", {
         method: "POST",
-        // mode: "cors", // cors, no-cors, *cors, same-origin
-        // cache: "no-cache", // *default, no-cache, reload, 
-        // credentials: "same-origin",
         headers: {
             accept: "application/json",
             "Content-Type": "application/json",
@@ -24,7 +38,6 @@ buttonPostMessage.addEventListener("click", e => {
             text: messageElement.value
         })
     }).then(response => {
-        debugger;
         console.log(response);
         location = "/posts/";  //force refresh
     });
@@ -32,12 +45,14 @@ buttonPostMessage.addEventListener("click", e => {
 
 function getMessage(message) {
     return `
-    <div>
+    <div class="message">
         <h1>${message.text}</h1>
         <div class="username">${message.username}</div>
         <div class="createdAt">${message.createdAt}</div>
         <div class="ID:">${message._id}</div>
-        <div class="Likes:">${message.likes.length}</div>
+        <div class="Likes:">${message.likes.length} Likes 
+            <button onclick="like('${message._id}')">Like</button>
+        </div>
     </div>
     <hr>
     `;
