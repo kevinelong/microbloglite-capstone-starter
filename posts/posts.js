@@ -39,6 +39,10 @@ function getMessage(message) {
     `;
 }
 function showMessages(messages) {
+    if(messages.hasOwnProperty("message")){
+        location = "/";
+        return;
+    }
     messagesOutput.innerHTML = messages.map(getMessage).join("");
 }
 

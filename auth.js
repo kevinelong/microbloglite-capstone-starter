@@ -42,7 +42,7 @@ function logout () {
         method: "GET",
         headers: { Authorization: `Bearer ${localStorage.token}`}
     }).then(() => {
-            window.localStorage.remove("token");
+            window.localStorage.removeItem("token");
             location  = "/";  // redirect back to landing page
     });
 }
