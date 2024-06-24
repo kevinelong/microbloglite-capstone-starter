@@ -44,6 +44,8 @@ function showMessages(messages) {
 
 fetch(apiBaseURL + "/api/posts?limit=1000&offset=0", {
     method: "GET",
+    // mode: "no-cors", // cors, no-cors, *cors, same-origin
+    // credentials: "omit", // include, *same-origin, omit
     headers: { Authorization: `Bearer ${localStorage.token}` }
 }).then(response => {
     if (response.statusCode >= 400) {
@@ -51,4 +53,7 @@ fetch(apiBaseURL + "/api/posts?limit=1000&offset=0", {
         location = "/";
     }
     return response.json()
-}).then(showMessages);
+}).then(data=>{
+    debugger;
+    showMessages(data);
+});
