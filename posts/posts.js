@@ -50,7 +50,7 @@ function showMessages(messages) {
     messagesOutput.innerHTML = messages.map(getMessage).join("");
 }
 
-fetch(apiBaseURL + "/api/posts?limit=10000&offset=1", {
+fetch(apiBaseURL + "/api/posts", {
     method: "GET",
     // mode: "no-cors", // cors, no-cors, *cors, same-origin
     // credentials: "omit", // include, *same-origin, omit
