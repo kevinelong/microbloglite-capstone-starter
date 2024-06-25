@@ -44,7 +44,7 @@ buttonPostMessage.addEventListener("click", e => {
 });
 
 function getMessage(message) {
-    const html =  `
+    return /*html*/`
     <div class="message">
         <h1>${message.text}</h1>
         <div class="username">${message.username}</div>
@@ -54,9 +54,7 @@ function getMessage(message) {
             <button onclick="like('${message._id}')">Like</button>
         </div>
     </div>
-    <hr>
-    `;
-    return html;
+    <hr>`;
 }
 function showMessages(messages) {
     if(messages.hasOwnProperty("message")){
