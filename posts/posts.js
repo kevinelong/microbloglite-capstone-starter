@@ -44,7 +44,7 @@ buttonPostMessage.addEventListener("click", e => {
 });
 
 function getMessage(message) {
-    return `
+    const html =  `
     <div class="message">
         <h1>${message.text}</h1>
         <div class="username">${message.username}</div>
@@ -56,6 +56,7 @@ function getMessage(message) {
     </div>
     <hr>
     `;
+    return html;
 }
 function showMessages(messages) {
     if(messages.hasOwnProperty("message")){
