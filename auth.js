@@ -34,7 +34,7 @@ function login(loginData) {
             return;
         }
         errorMessage.innerHTML = "";
-        window.localStorage.setItem("login-data", JSON.stringify(loginData));
+        // window.localStorage.setItem("login-data", JSON.stringify(loginData));
         window.localStorage.token = loginData.token; //simple string
         window.localStorage.username = loginData.username; //simple string
         window.location.assign("/posts");  // redirect
@@ -42,8 +42,14 @@ function login(loginData) {
     });
 }
 
+// function getLoginData(){
+//     return JSON.parse(window.localStorage.getItem("login-data"))
+// }
 
 function logout() {
+    
+    // const loginData = getLoginData();
+
     fetch(apiBaseURL + "/auth/logout", {
         method: "GET",
         headers: { Authorization: `Bearer ${localStorage.token}` }
